@@ -1,5 +1,15 @@
-<h1>hi <%=name%></h1>
+<h1>Hi</h1>
+
 <form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">Logout</button>
-  </form>
-  
+  <button type="submit">Logout</button>
+</form>
+
+<form action="/" method="POST">
+  <button type="submit"><a href="http://10.80.4.46:3000">create new document</a></button>
+</form>
+
+<ul>
+  <li>
+    <%= documentId %>
+  </li>
+</ul>
