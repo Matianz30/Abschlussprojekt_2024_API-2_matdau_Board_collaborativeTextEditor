@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const http = require("http");
 const bcrypt = require("bcrypt");
-const initializePassport = require("./passport-config.js");
+const { initialize, user } = require("./passport-config.js");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
@@ -17,11 +17,25 @@ const socketServer = require("./servercol.js");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const corsOptions = {
-  origin: "http://10.80.4.46:3000", // Replace with your frontend origin
+  origin: "http://10.80.4.46:3000",
   methods: ["GET", "POST"],
-  credentials: true, // Allow credentials (cookies, authorization headers) to be sent
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
+
+//get DocumentId help from chatGPT
+let documentIds = [];
+
+function addDocumentId(documentId) {
+  if (!documentIds.includes(documentId)) {
+    documentIds.push(documentId);
+  }
+}
+
+function getDocumentIds() {
+  return documentIds;
+}
 
 //create server
 const server = http.createServer(app);
@@ -35,7 +49,7 @@ getCollection();
 
 const users = [];
 
-initializePassport(
+initialize(
   passport,
   (email) => collection.findOne({ email: email }),
   (id) => collection.findOne({ _id: id })
@@ -45,6 +59,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
+//help from cyril with middleware
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -55,7 +70,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
 
-//used chatgpt to convert array to String
+//got queries from MongoDB documentation
 app.get("/", checkAuthenticated, async (req, res) => {
   const query = { email: "matianmc08@gmail.com" };
   const projection = { Documents: 1 };
@@ -85,6 +100,7 @@ app.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
 
+//Got push from MongoDB documentation
 app.post("/", checkAuthenticated, async (req, res) => {
   await collection.updateOne(
     { email: "matianmc08@gmail.com", Documents: { $type: "string" } },
@@ -93,11 +109,14 @@ app.post("/", checkAuthenticated, async (req, res) => {
     }
   );
 
+  const email = req.user.email;
+  console.log(await req.user);
+
   await collection.updateOne(
     { email: "matianmc08@gmail.com" },
     {
       $push: {
-        Documents: "123",
+        Documents: "123343512asdasd",
       },
       $currentDate: {
         timestamp: true,
@@ -120,7 +139,6 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
     console.error(error);
     res.redirect("/register");
   }
-  console.log(users);
 });
 
 app.delete("/logout", (req, res, next) => {
@@ -157,5 +175,4 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 server.listen(3001);
-
 socketServer(passport, sessionMiddleware, server);

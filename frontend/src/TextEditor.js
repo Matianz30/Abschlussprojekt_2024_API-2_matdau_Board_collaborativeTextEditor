@@ -122,6 +122,13 @@ export default function TextEditor() {
       <div className="container" ref={wrapperRef}>
         Text Editor
       </div>
+      <div class="goBack">
+        <button class="goBackButton">
+          <a href="http://10.80.4.46:3001" class="goBack2">
+            Go back to Login/Home
+          </a>
+        </button>
+      </div>
       {/*<button onClick={anmelden}>Anmelde</button>*/}
     </>
   );

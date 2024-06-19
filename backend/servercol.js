@@ -1,6 +1,7 @@
 const Document = require("./document");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
+//const { addDocumentId, getDocumentIds } = require("./server");
 
 function socketServer(passport, sessionMiddleware, server) {
   mongoose
@@ -14,7 +15,7 @@ function socketServer(passport, sessionMiddleware, server) {
     },
   });
 
-  // support by https://socket.io/how-to/use-with-passport
+  // support by https://socket.io/how-to/use-with-passport and cyril
   function onlyForHandshake(middleware) {
     return (req, res, next) => {
       const isHandshake = req._query.sid === undefined;
@@ -43,13 +44,16 @@ function socketServer(passport, sessionMiddleware, server) {
 
   const defaultValue = "";
 
+  //help from ChatGPT to mange Documents
   io.on("connection", (socket) => {
     console.log("connected");
     socket.on("get-document", async (documentId) => {
       const document = await findOrCreateDocument(documentId);
       const user = socket.request.user;
-      console.log(user);
       console.log(documentId);
+
+      //addDocumentId(documentId); // Add documentId to the manager
+
       socket.join(documentId);
       socket.emit("load-document", document.data);
       socket.on("send-changes", (delta) => {
