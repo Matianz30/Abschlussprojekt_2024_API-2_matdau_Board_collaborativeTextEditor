@@ -1,0 +1,77 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f3f3f3;
+    margin: 0;
+}
+
+.container .ql-editor {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2.5cm;
+    margin: 1rem;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+}
+
+.container .ql-container.ql-snow {
+    border: none;
+    display: flex;
+    justify-content: center;
+}
+
+.container .ql-toolbar.ql-snow {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    border: none;
+}
+
+@page {
+    margin: 2.5cm;
+}
+
+@media print {
+    body {
+        background: none;
+    }
+
+    .container .ql-editor {
+        width: 21cm;
+        height: 29.7cm;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        align-self: flex-start;
+    }
+
+    .container .ql-toolbar.ql-snow {
+        display: none;
+    }
+}
+
+.goBack {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.goBackButton {
+    padding: 0.2rem;
+    border: none;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+    margin: 0.6rem;
+}
+
+.goBack2 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    text-decoration: none;
+}
