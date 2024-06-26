@@ -41,6 +41,7 @@ body {
     body {
         background: none;
     }
+
     .container .ql-editor {
         width: 21cm;
         height: 29.7cm;
@@ -66,6 +67,7 @@ body {
     border: none;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
     background-color: white;
+    margin: 0.6rem;
 }
 
 .goBack2 {
