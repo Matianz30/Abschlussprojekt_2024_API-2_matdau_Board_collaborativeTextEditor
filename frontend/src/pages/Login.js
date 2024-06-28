@@ -1,4 +1,21 @@
-import React, {useState} from "react";
+/**
+ * Collaborative Text Editor
+ *
+ * Author: Matian Dauti
+ *
+ * Description:
+ * This project is a collaborative text editor that allows multiple users to edit
+ * a document simultaneously in real-time. It includes features such as live
+ * synchronization.
+ *
+ * Date: 28.06.2024
+ *
+ * License: GNU
+ *
+ * Version: 1.0
+ */
+
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login() {
@@ -7,7 +24,7 @@ function Login() {
 
     async function loginUser(event) {
         event.preventDefault();
-        const response = await fetch("http://10.80.4.46:3001/api/login", {
+        const response = await fetch("http://localhost:3001/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,7 +46,9 @@ function Login() {
 
         console.log(data);
     }
-
+    useEffect(() => {
+        document.title = 'Login';
+    }, []);
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">

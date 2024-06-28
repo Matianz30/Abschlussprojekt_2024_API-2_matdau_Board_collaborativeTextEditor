@@ -1,3 +1,20 @@
+/**
+ * Collaborative Text Editor
+ *
+ * Author: Matian Dauti
+ *
+ * Description:
+ * This project is a collaborative text editor that allows multiple users to edit
+ * a document simultaneously in real-time. It includes features such as live
+ * synchronization.
+ *
+ * Date: 28.06.2024
+ *
+ * License: GNU
+ *
+ * Version: 1.0
+ */
+
 import React, {useEffect, useRef, useState} from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
@@ -5,6 +22,7 @@ import {io} from "socket.io-client";
 import {useParams} from "react-router";
 
 const SAVE_INTERVAL_MS = 2000;
+//support from Quill documentation
 const TOOLBAR_OPTIONS = [
     [{header: [1, 2, 3, 4, 5, 6, false]}],
     [{font: []}],
@@ -102,22 +120,9 @@ export default function TextEditor() {
         };
     }, [socket, quill]);
 
-    /*
-    function anmelden() {
-      const formData = new URLSearchParams();
-      formData.append("email", "matianmc08@gmail.com");
-      formData.append("password", "12345678");
-
-      fetch("http://10.80.4.46:3001/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: formData,
-        credentials: "include",
-      });
-    }
-  */
+    useEffect(() => {
+        document.title = 'Yord - collaborative editor';
+    }, []);
 
     async function addDocument() {
         const url = window.location.href;

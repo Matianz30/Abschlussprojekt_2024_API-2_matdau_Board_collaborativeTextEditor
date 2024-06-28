@@ -1,4 +1,21 @@
-import React, {useState} from "react";
+/**
+ * Collaborative Text Editor
+ *
+ * Author: Matian Dauti
+ *
+ * Description:
+ * This project is a collaborative text editor that allows multiple users to edit
+ * a document simultaneously in real-time. It includes features such as live
+ * synchronization.
+ *
+ * Date: 28.06.2024
+ *
+ * License: GNU
+ *
+ * Version: 1.0
+ */
+
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useNavigate} from "react-router-dom";
 
@@ -8,9 +25,13 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        document.title = 'Register';
+    }, []);
+
     async function registerUser(event) {
         event.preventDefault();
-        const response = await fetch("http://10.80.4.46:3001/api/register", {
+        const response = await fetch("http://localhost:3001/api/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -72,6 +93,9 @@ function Register() {
                                     Register
                                 </button>
                             </form>
+                            <p className="mt-3 text-center">
+                                Already have a account? <a href="http://localhost:3000/login">Login</a>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,20 @@
+/**
+ * Collaborative Text Editor
+ *
+ * Author: Matian Dauti
+ *
+ * Description:
+ * This project is a collaborative text editor that allows multiple users to edit
+ * a document simultaneously in real-time. It includes features such as live
+ * synchronization.
+ *
+ * Date: 28.06.2024
+ *
+ * License: GNU
+ *
+ * Version: 1.0
+ */
+
 import React, {useState, useContext} from "react";
 import TextEditor from "./TextEditor";
 import {
